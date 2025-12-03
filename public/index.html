@@ -7,224 +7,129 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* ======================================= */
-        /* 1. Base y Tipografía */
-        /* ======================================= */
-        body {
-            font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin: 0; /* Remove default body margin */
-            padding: 0; /* Let the container handle padding */
-            background-color: #f8f9fc;
-            color: #1f2937;
-            line-height: 1.6;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'race-dash': 'raceDash 1.2s ease-out forwards',
+                        'bounce-race': 'bounceRace 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        raceDash: {
+                            '0%': { width: '0%', opacity: '0' },
+                            '100%': { width: 'var(--race-width, 100%)', opacity: '1' },
+                        },
+                        bounceRace: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.1)' },
+                        },
+                    },
+                },
+            },
         }
-        h1 {
-            font-size: 2em;
-            font-weight: 700;
-            color: #1a2b48;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        /* Ajuste para pantallas pequeñas */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.6em;
-            }
-            .container { /* Apply padding to container on small screens */
-                padding: 15px;
-            }
-        }
-
-        /* ======================================= */
-        /* 2. Actualización y Contenedores */
-        /* ======================================= */
-        .last-update, .loading, .error {
-            text-align: center;
-            margin-bottom: 35px;
-            font-size: 0.9em;
-            color: #6b7280;
-            font-weight: 500;
-        }
-        .candidates-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            justify-content: center;
-        }
-
-        /* ======================================= */
-        /* 2.1. Componente de Comparación de Líderes */
-        /* ======================================= */
-        .leader-comparison {
-            max-width: 700px;
-            margin: -15px auto 30px auto;
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 15px 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-        }
-        .vote-difference-text {
-            text-align: center;
-            font-size: 1.05em;
-            font-weight: 500;
-            color: #1a2b48;
-            margin-bottom: 15px;
-        }
-        .comparison-bar-container {
-            display: flex;
-            width: 100%;
-            height: 35px;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #e9ecef;
-        }
-        .comparison-bar-container .bar {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-            color: white;
-            font-weight: 500;
-            font-size: 0.9em;
-            white-space: nowrap;
-            transition: width 0.5s ease-in-out;
-        }
-        .bar .name {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-right: 8px;
-        }
-        .container {
-            max-width: 1200px; /* Max width for the main content */
-            margin: 0 auto; /* Center the container */
-            padding: 0 15px; /* Add some horizontal padding */
-        }
-
-
-
-        /* ======================================= */
-        /* 3. Tarjeta del Candidato (Card) */
-        /* ======================================= */
-        .candidate-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
-            padding: 0;
-            width: 100%;
-            max-width: 350px;
-            overflow: hidden;
-            border-top: 5px solid;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .candidate-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        /* Contenido principal de la tarjeta */
-        .card-content {
-            padding: 15px 20px;
-        }
-
-        /* Imagen */
-        .candidate-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Nombre */
-        .candidate-card h2 {
-            font-size: 1.4em;
-            margin: 0 0 5px 0;
-            color: #1f2937;
-            text-align: left;
-        }
-
-        /* Partido/Cargo */
-        .candidate-card .party {
-            font-size: 0.9em;
-            color: #4b5563;
-            margin-bottom: 15px;
-            display: block;
-            font-weight: normal;
-        }
-
-        /* Porcentaje de Votos */
-        .votes-percentage {
-            font-size: 2.2em;
-            font-weight: bold;
-            color: #0056b3;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        /* Total de Votos */
-        .total-votes {
-            font-size: 0.9em;
-            text-align: right;
-            color: #6b7280;
-            margin-top: 5px;
-        }
-
-        /* Descripción */
-        .description {
-            font-style: italic;
-            color: #9ca3af;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px solid #e5e7eb;
-            font-size: 0.8em;
-            height: 40px;
-            overflow: hidden;
-        }
-
-        /* ======================================= */
-        /* 4. Colores y Responsive */
-        /* ======================================= */
-        .color-red { border-top-color: #e50000; }
-        .color-blue { border-top-color: #007bff; }
-        .color-green { border-top-color: #28a745; }
-        .color-orange { border-top-color: #d69300; }
-
-        /* Media Query para pantallas más grandes (Tablets y Desktop) */
-        @media (min-width: 600px) {
-            .candidate-card {
-                width: calc(50% - 20px);
-                max-width: 400px;
-            }
-        }
-        @media (min-width: 900px) {
-            .candidate-card {
-                width: calc(33.33% - 18px);
-                max-width: 340px;
-            }
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="font-sans text-gray-900 bg-gradient-to-br from-blue-50 via-white to-indigo-50 m-0 p-0 leading-relaxed min-h-screen">
 
-    <div class="container">
-        <h1>🇭🇳 Resultados Elecciones Generales Honduras 2025</h1>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-5xl sm:text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-800 to-indigo-900 text-center mb-2 animate-fade-in">🇭🇳 Resultados Elecciones Honduras 2025</h1>
+            <div class="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full mb-4"></div>
+            <p class="text-sm text-gray-600 font-medium tracking-wide">GENERALES</p>
+        </div>
         
-        <!-- Contenedor para la comparación visual de los líderes -->
-        <div id="leader-comparison" class="leader-comparison" style="display: none;">
-            <div id="vote-difference-text" class="vote-difference-text"></div>
-            <div class="comparison-bar-container">
-                <div id="winner-bar" class="bar"></div>
-                <div id="runnerup-bar" class="bar"></div>
+        <div id="last-update" class="text-center mb-6 text-sm font-semibold text-gray-600 tracking-wide animate-fade-in">⏱️ Cargando datos...</div>
+        
+        <!-- OLYMPIC STADIUM: Comparación de Líderes como una carrera humana -->
+        <div id="leader-comparison" class="max-w-4xl mx-auto mb-12 hidden animate-slide-up">
+            <div class="bg-gradient-to-b from-red-900 via-red-800 to-red-900 rounded-3xl p-8 shadow-2xl border-4 border-yellow-300 relative overflow-hidden">
+                <!-- Decorative Olympic rings pattern -->
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full flex justify-center gap-2 opacity-10">
+                    <div class="w-12 h-12 border-4 border-blue-400 rounded-full"></div>
+                    <div class="w-12 h-12 border-4 border-black rounded-full"></div>
+                    <div class="w-12 h-12 border-4 border-red-600 rounded-full"></div>
+                    <div class="w-12 h-12 border-4 border-yellow-400 rounded-full"></div>
+                    <div class="w-12 h-12 border-4 border-green-500 rounded-full"></div>
+                </div>
+                
+                <!-- Title -->
+                <div class="relative z-10 mb-8 text-center">
+                    <h2 class="text-3xl font-black text-yellow-300 mb-2 flex items-center justify-center gap-3">
+                        🏃 LA GRAN CARRERA ELECTORAL 🏃
+                    </h2>
+                    <p class="text-yellow-200 font-bold text-sm tracking-widest">¿QUIÉN CRUZARÁ LA META PRIMERO?</p>
+                </div>
+                
+                <!-- Difference text -->
+                <div id="vote-difference-text" class="text-center mb-8 animate-pulse-slow text-white font-bold text-lg">
+                    <p class="text-yellow-200 font-bold text-lg">⏳ ¡LA CARRERA ESTÁ EN JUEGO!</p>
+                </div>
+                
+                <!-- Running Track Lanes -->
+                <div class="space-y-6">
+                    <!-- Lane 1: Winner -->
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🥇</span>
+                                <span class="font-black text-yellow-200 text-sm uppercase tracking-wider">Carril 1</span>
+                            </div>
+                            <div id="winner-votes" class="font-black text-yellow-200 text-sm">0 votos</div>
+                        </div>
+                        <div class="relative h-20 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 border-4 border-yellow-300 overflow-hidden shadow-lg" style="background: linear-gradient(90deg, #4c5369 0%, #5a6478 50%, #4c5369 100%);">
+                            <!-- Track lines (running track dashes) -->
+                            <div class="absolute inset-0 flex items-center opacity-30">
+                                <div class="w-full h-1 bg-white" style="background: repeating-linear-gradient(90deg, white 0px, white 15px, transparent 15px, transparent 30px);"></div>
+                            </div>
+                            <!-- Running bar -->
+                            <div id="winner-bar" class="h-full flex items-center justify-between px-5 text-white font-black text-base transition-all duration-1000 ease-out rounded-full shadow-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:shadow-2xl hover:from-emerald-400 hover:to-green-500" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lane 2: Runner-up -->
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🥈</span>
+                                <span class="font-black text-yellow-200 text-sm uppercase tracking-wider">Carril 2</span>
+                            </div>
+                            <div id="runnerup-votes" class="font-black text-yellow-200 text-sm">0 votos</div>
+                        </div>
+                        <div class="relative h-20 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 border-4 border-yellow-300 overflow-hidden shadow-lg" style="background: linear-gradient(90deg, #4c5369 0%, #5a6478 50%, #4c5369 100%);">
+                            <!-- Track lines (running track dashes) -->
+                            <div class="absolute inset-0 flex items-center opacity-30">
+                                <div class="w-full h-1 bg-white" style="background: repeating-linear-gradient(90deg, white 0px, white 15px, transparent 15px, transparent 30px);"></div>
+                            </div>
+                            <!-- Running bar -->
+                            <div id="runnerup-bar" class="h-full flex items-center justify-between px-5 text-white font-black text-base transition-all duration-1000 ease-out rounded-full shadow-xl bg-gradient-to-r from-red-500 to-orange-600 hover:shadow-2xl hover:from-red-400 hover:to-orange-500" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Finish line -->
+                <div class="mt-8 flex justify-end items-center gap-2 opacity-90">
+                    <div class="text-2xl font-black">🏁</div>
+                    <p class="text-yellow-200 font-bold text-xs tracking-widest">META</p>
+                </div>
             </div>
         </div>
 
-        <div id="last-update" class="last-update">Cargando datos...</div>
-
-        <div id="candidates-list" class="candidates-container">
-            <div class="loading">🔄 Obteniendo los últimos datos desde el servidor...</div>
-        </div>
+        <!-- <div id="candidates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center pb-12">
+            <div class="loading text-center text-sm text-gray-600 font-medium animate-pulse col-span-full py-12">🔄 Obteniendo los últimos datos desde el servidor...</div>
+        </div> -->
     </div>
 
     <script>
@@ -235,11 +140,11 @@
         const lastUpdateElement = document.getElementById('last-update');
 
         function mapColor(color) {
-            if (color === 'red') return 'color-red';
-            if (color === 'blue') return 'color-blue';
-            if (color === 'green') return 'color-green';
-            if (color === '#d69300') return 'color-orange';
-            return '';
+            if (color === 'red') return 'border-t-red-600';
+            if (color === 'blue') return 'border-t-blue-600';
+            if (color === 'green') return 'border-t-green-600';
+            if (color === '#d69300') return 'border-t-yellow-700';
+            return 'border-t-gray-400';
         }
         
         // Función auxiliar para convertir el string de votos (ej: "1,021,822") a número
@@ -301,9 +206,13 @@
                     const winnerName = winner.nombre || "El primer lugar";
                     const runnerUpName = runnerUp.nombre || "el segundo lugar";
 
+                    // Get candidate images
+                    const winnerImg = winner.img ? (IMAGE_BASE_URL + winner.img) : 'https://via.placeholder.com/48x48?text=+';
+                    const runnerUpImg = runnerUp.img ? (IMAGE_BASE_URL + runnerUp.img) : 'https://via.placeholder.com/48x48?text=+';
+
                     // Actualizar texto de diferencia
                     const voteDifferenceText = document.getElementById('vote-difference-text');
-                    voteDifferenceText.innerHTML = `📈 ${winnerName} aventaja a ${runnerUpName} por <strong>${difference.toLocaleString('es-HN')}</strong> votos.`;
+                    voteDifferenceText.innerHTML = `🚦 ${winnerName} aventaja a ${runnerUpName} por <strong>${difference.toLocaleString('es-HN')}</strong> votos.`;
 
                     // Calcular y aplicar porcentajes para la barra visual
                     const winnerPercentage = totalTwo > 0 ? ((winnerVotes / totalTwo) * 100) : 50;
@@ -311,16 +220,22 @@
 
                     const winnerBar = document.getElementById('winner-bar');
                     const runnerUpBar = document.getElementById('runnerup-bar');
+                    const winnerVotesElement = document.getElementById('winner-votes');
+                    const runnerUpVotesElement = document.getElementById('runnerup-votes');
 
                     winnerBar.style.width = `${winnerPercentage}%`;
-                    winnerBar.style.backgroundColor = winner.color === '#d69300' ? '#d69300' : (winner.color || '#007bff');
-                    winnerBar.innerHTML = `<span class="name">${winnerName.split(' ')[0]}</span> <span class="percentage">${winnerPercentage.toFixed(2)}%</span>`;
+                    const winnerBgColor = winner.color === '#d69300' ? '#d69300' : (winner.color || '#007bff');
+                    winnerBar.style.backgroundColor = winnerBgColor;
+                    winnerBar.innerHTML = `<span class="font-bold text-white truncate flex-1">${winnerName.split(' ')[0]}</span> <span class="font-black text-yellow-300 mx-2">${winnerPercentage.toFixed(1)}%</span> <img src="${winnerImg}" alt="${winnerName}" class="w-12 h-12 rounded-full border-2 border-white shadow-lg object-cover flex-shrink-0">`;
+                    winnerVotesElement.textContent = `${winnerVotes.toLocaleString('es-HN')} votos`;
 
                     runnerUpBar.style.width = `${runnerUpPercentage}%`;
-                    runnerUpBar.style.backgroundColor = runnerUp.color === '#d69300' ? '#d69300' : (runnerUp.color || '#e50000');
-                    runnerUpBar.innerHTML = `<span class="name">${runnerUpName.split(' ')[0]}</span> <span class="percentage">${runnerUpPercentage.toFixed(2)}%</span>`;
+                    const runnerUpBgColor = runnerUp.color === '#d69300' ? '#d69300' : (runnerUp.color || '#e50000');
+                    runnerUpBar.style.backgroundColor = runnerUpBgColor;
+                    runnerUpBar.innerHTML = `<span class="font-bold text-white truncate flex-1">${runnerUpName.split(' ')[0]}</span> <span class="font-black text-yellow-300 mx-2">${runnerUpPercentage.toFixed(1)}%</span> <img src="${runnerUpImg}" alt="${runnerUpName}" class="w-12 h-12 rounded-full border-2 border-white shadow-lg object-cover flex-shrink-0">`;
+                    runnerUpVotesElement.textContent = `${runnerUpVotes.toLocaleString('es-HN')} votos`;
 
-                    leaderComparisonElement.style.display = 'block';
+                    leaderComparisonElement.classList.remove('hidden');
                 }
 
                 candidates.slice(0, 2).forEach(hit => {
@@ -330,7 +245,7 @@
                     const card = document.createElement('div');
                     
                     const colorClass = mapColor(data.color);
-                    card.className = `candidate-card ${colorClass}`;
+                    card.className = `w-full max-w-sm bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:scale-105 ${colorClass} animate-slide-up group cursor-pointer`;
 
                     // Lógica segura para el partido
                     let partyDisplay = "Partido/Cargo no especificado"; 
@@ -348,17 +263,29 @@
                     const descripcion = data.descripcion || "Sin descripción disponible.";
                     
                     // Lógica para la imagen
-                    const imgSrc = data.img ? (IMAGE_BASE_URL + data.img) : 'https://via.placeholder.com/350x200?text=Imagen+no+disponible'; // Fallback image
-                    const imageTag = `<img src="${imgSrc}" alt="Foto de ${nombre}" loading="lazy">`;
+                    const imgSrc = data.img ? (IMAGE_BASE_URL + data.img) : 'https://via.placeholder.com/350x200?text=Imagen+no+disponible';
+                    const imageTag = `<img src="${imgSrc}" alt="Foto de ${nombre}" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-300">`;
+                    // Lógica para la imagen
 
                     card.innerHTML = `
-                        ${imageTag} 
-                        <div class="card-content">
-                            <h2>${nombre}</h2>
-                            <span class="party">${partyDisplay}</span>
-                            <div class="votes-percentage">${porcentaje}%</div>
-                            <p class="total-votes">Votos Totales: **${totalVotos}**</p>
-                            <p class="description">${descripcion}</p>
+                        <div class="relative overflow-hidden h-56">
+                            ${imageTag}
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-6 bg-gradient-to-b from-white to-gray-50">
+                            <h2 class="text-2xl font-black text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors">${nombre}</h2>
+                            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-4">${partyDisplay}</span>
+                            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-4 mb-4">
+                                <div class="text-4xl font-black text-white text-center">${porcentaje}%</div>
+                                <p class="text-white text-xs text-center mt-1 font-semibold">Porcentaje de votos</p>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-xs font-semibold text-gray-600 uppercase">Votos Totales</span>
+                                    <span class="text-lg font-black text-gray-900">${totalVotos}</span>
+                                </div>
+                                <p class="italic text-gray-500 text-xs leading-relaxed h-12 overflow-hidden line-clamp-3 border-t border-gray-200 pt-3">${descripcion}</p>
+                            </div>
                         </div>
                     `;
 
@@ -369,9 +296,11 @@
                 console.error("Error al obtener o procesar los datos:", error);
                 lastUpdateElement.textContent = 'Error de conexión con el servidor.';
                 candidatesList.innerHTML = `
-                    <div class="error">
-                        ❌ **Error al cargar los datos.**<br>
-                        Detalle: ${error.message}. Por favor, intente de nuevo más tarde.
+                    <div class="col-span-full text-center py-12 px-6">
+                        <div class="text-5xl mb-4">❌</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Error al cargar los datos</h3>
+                        <p class="text-gray-600 mb-4">${error.message}</p>
+                        <p class="text-sm text-gray-500">Por favor, intente de nuevo más tarde.</p>
                     </div>
                 `;
             }
