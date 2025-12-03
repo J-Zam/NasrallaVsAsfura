@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados Elecciones Honduras 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ======================================= */
+        /* 1. Base y Tipografía */
+        /* ======================================= */
+        body {
+            font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0; /* Remove default body margin */
+            padding: 0; /* Let the container handle padding */
+            background-color: #f8f9fc;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        h1 {
+            font-size: 2em;
+            font-weight: 700;
+            color: #1a2b48;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        /* Ajuste para pantallas pequeñas */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.6em;
+            }
+            .container { /* Apply padding to container on small screens */
+                padding: 15px;
+            }
+        }
+
+        /* ======================================= */
+        /* 2. Actualización y Contenedores */
+        /* ======================================= */
+        .last-update, .loading, .error {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 0.9em;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        .candidates-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        /* ======================================= */
+        /* 2.1. Componente de Comparación de Líderes */
+        /* ======================================= */
+        .leader-comparison {
+            max-width: 700px;
+            margin: -15px auto 30px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+        .vote-difference-text {
+            text-align: center;
+            font-size: 1.05em;
+            font-weight: 500;
+            color: #1a2b48;
+            margin-bottom: 15px;
+        }
+        .comparison-bar-container {
+            display: flex;
+            width: 100%;
+            height: 35px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #e9ecef;
+        }
+        .comparison-bar-container .bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.9em;
+            white-space: nowrap;
+            transition: width 0.5s ease-in-out;
+        }
+        .bar .name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-right: 8px;
+        }
+        .container {
+            max-width: 1200px; /* Max width for the main content */
+            margin: 0 auto; /* Center the container */
+            padding: 0 15px; /* Add some horizontal padding */
+        }
+
+
+
+        /* ======================================= */
+        /* 3. Tarjeta del Candidato (Card) */
+        /* ======================================= */
+        .candidate-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+            padding: 0;
+            width: 100%;
+            max-width: 350px;
+            overflow: hidden;
+            border-top: 5px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .candidate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Contenido principal de la tarjeta */
+        .card-content {
+            padding: 15px 20px;
+        }
+
+        /* Imagen */
+        .candidate-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Nombre */
+        .candidate-card h2 {
+            font-size: 1.4em;
+            margin: 0 0 5px 0;
+            color: #1f2937;
+            text-align: left;
+        }
+
+        /* Partido/Cargo */
+        .candidate-card .party {
+            font-size: 0.9em;
+            color: #4b5563;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: normal;
+        }
+
+        /* Porcentaje de Votos */
+        .votes-percentage {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #0056b3;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        /* Total de Votos */
+        .total-votes {
+            font-size: 0.9em;
+            text-align: right;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        /* Descripción */
+        .description {
+            font-style: italic;
+            color: #9ca3af;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.8em;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        /* ======================================= */
+        /* 4. Colores y Responsive */
+        /* ======================================= */
+        .color-red { border-top-color: #e50000; }
+        .color-blue { border-top-color: #007bff; }
+        .color-green { border-top-color: #28a745; }
+        .color-orange { border-top-color: #d69300; }
+
+        /* Media Query para pantallas más grandes (Tablets y Desktop) */
+        @media (min-width: 600px) {
+            .candidate-card {
+                width: calc(50% - 20px);
+                max-width: 400px;
+            }
+        }
+        @media (min-width: 900px) {
+            .candidate-card {
+                width: calc(33.33% - 18px);
+                max-width: 340px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🇭🇳 Resultados Elecciones Generales Honduras 2025</h1>
+        
+        <!-- Contenedor para la comparación visual de los líderes -->
+        <div id="leader-comparison" class="leader-comparison" style="display: none;">
+            <div id="vote-difference-text" class="vote-difference-text"></div>
+            <div class="comparison-bar-container">
+                <div id="winner-bar" class="bar"></div>
+                <div id="runnerup-bar" class="bar"></div>
+            </div>
+        </div>
+
+        <div id="last-update" class="last-update">Cargando datos...</div>
+
+        <div id="candidates-list" class="candidates-container">
+            <div class="loading">🔄 Obteniendo los últimos datos desde el servidor...</div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/candidatos'; 
+        const IMAGE_BASE_URL = 'https://www.eleccioneshonduras.hn/assets/img/candidatos/';
+
+        const candidatesList = document.getElementById('candidates-list');
+        const lastUpdateElement = document.getElementById('last-update');
+
+        function mapColor(color) {
+            if (color === 'red') return 'color-red';
+            if (color === 'blue') return 'color-blue';
+            if (color === 'green') return 'color-green';
+            if (color === '#d69300') return 'color-orange';
+            return '';
+        }
+        
+        // Función auxiliar para convertir el string de votos (ej: "1,021,822") a número
+        function parseVotes(voteString) {
+            if (!voteString || typeof voteString !== 'string') return 0;
+            // Elimina comas y convierte a entero
+            return parseInt(voteString.replace(/,/g, ''), 10) || 0;
+        }
+
+        async function fetchAndRenderCandidates() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || `Error HTTP: ${response.status}`);
+                }
+                
+                candidatesList.innerHTML = '';
+
+                if (!data.candidatos || !data.candidatos.responses) {
+                    throw new Error("Estructura de datos principal inesperada.");
+                }
+
+                const apiResponse = data.candidatos.responses;
+
+                // 1. Procesar la fecha de última actualización
+                try {
+                    const lastUpdateData = apiResponse[1].hits.hits[0]._source;
+                    const updateTime = lastUpdateData.last_vote_count_at;
+                    lastUpdateElement.textContent = `Última Actualización: ${updateTime}`;
+                } catch (e) {
+                    lastUpdateElement.textContent = 'Última Actualización: No disponible.';
+                }
+
+                // 2. Procesar y ORDENAR los candidatos
+                let candidates = apiResponse[0].hits.hits;
+
+                // --- INICIO DE LA LÓGICA DE ORDENAMIENTO ---
+                candidates.sort((a, b) => {
+                    const votesA = parseVotes(a._source.value.total_votos);
+                    const votesB = parseVotes(b._source.value.total_votos);
+                    // Retorna (B - A) para orden descendente (mayor a menor)
+                    return votesB - votesA;
+                });
+                // --- FIN DE LA LÓGICA DE ORDENAMIENTO ---
+
+                // 3. Calcular y mostrar la diferencia de votos entre el 1er y 2do lugar
+                const leaderComparisonElement = document.getElementById('leader-comparison');
+                if (candidates.length >= 2) {
+                    const winner = candidates[0]._source.value;
+                    const runnerUp = candidates[1]._source.value;
+
+                    const winnerVotes = parseVotes(winner.total_votos);
+                    const runnerUpVotes = parseVotes(runnerUp.total_votos);
+                    const totalTwo = winnerVotes + runnerUpVotes;
+                    const difference = winnerVotes - runnerUpVotes;
+                    
+                    const winnerName = winner.nombre || "El primer lugar";
+                    const runnerUpName = runnerUp.nombre || "el segundo lugar";
+
+                    // Actualizar texto de diferencia
+                    const voteDifferenceText = document.getElementById('vote-difference-text');
+                    voteDifferenceText.innerHTML = `📈 ${winnerName} aventaja a ${runnerUpName} por <strong>${difference.toLocaleString('es-HN')}</strong> votos.`;
+
+                    // Calcular y aplicar porcentajes para la barra visual
+                    const winnerPercentage = totalTwo > 0 ? ((winnerVotes / totalTwo) * 100) : 50;
+                    const runnerUpPercentage = 100 - winnerPercentage;
+
+                    const winnerBar = document.getElementById('winner-bar');
+                    const runnerUpBar = document.getElementById('runnerup-bar');
+
+                    winnerBar.style.width = `${winnerPercentage}%`;
+                    winnerBar.style.backgroundColor = winner.color === '#d69300' ? '#d69300' : (winner.color || '#007bff');
+                    winnerBar.innerHTML = `<span class="name">${winnerName.split(' ')[0]}</span> <span class="percentage">${winnerPercentage.toFixed(2)}%</span>`;
+
+                    runnerUpBar.style.width = `${runnerUpPercentage}%`;
+                    runnerUpBar.style.backgroundColor = runnerUp.color === '#d69300' ? '#d69300' : (runnerUp.color || '#e50000');
+                    runnerUpBar.innerHTML = `<span class="name">${runnerUpName.split(' ')[0]}</span> <span class="percentage">${runnerUpPercentage.toFixed(2)}%</span>`;
+
+                    leaderComparisonElement.style.display = 'block';
+                }
+
+                candidates.slice(0, 2).forEach(hit => {
+                    if (!hit._source || !hit._source.value) return; 
+
+                    const data = hit._source.value;
+                    const card = document.createElement('div');
+                    
+                    const colorClass = mapColor(data.color);
+                    card.className = `candidate-card ${colorClass}`;
+
+                    // Lógica segura para el partido
+                    let partyDisplay = "Partido/Cargo no especificado"; 
+                    if (data.candidato && typeof data.candidato === 'string') {
+                        const partyNameMatch = data.candidato.match(/por el (.*)/i);
+                        partyDisplay = partyNameMatch ? partyNameMatch[1] : data.candidato;
+                    } else if (data.candidato) {
+                        partyDisplay = String(data.candidato);
+                    }
+                    
+                    // Asignar valores por defecto seguros
+                    const nombre = data.nombre || "Candidato Desconocido";
+                    const porcentaje = data.porcentaje || "0.00";
+                    const totalVotos = data.total_votos || "0";
+                    const descripcion = data.descripcion || "Sin descripción disponible.";
+                    
+                    // Lógica para la imagen
+                    const imgSrc = data.img ? (IMAGE_BASE_URL + data.img) : 'https://via.placeholder.com/350x200?text=Imagen+no+disponible'; // Fallback image
+                    const imageTag = `<img src="${imgSrc}" alt="Foto de ${nombre}" loading="lazy">`;
+
+                    card.innerHTML = `
+                        ${imageTag} 
+                        <div class="card-content">
+                            <h2>${nombre}</h2>
+                            <span class="party">${partyDisplay}</span>
+                            <div class="votes-percentage">${porcentaje}%</div>
+                            <p class="total-votes">Votos Totales: **${totalVotos}**</p>
+                            <p class="description">${descripcion}</p>
+                        </div>
+                    `;
+
+                    candidatesList.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Error al obtener o procesar los datos:", error);
+                lastUpdateElement.textContent = 'Error de conexión con el servidor.';
+                candidatesList.innerHTML = `
+                    <div class="error">
+                        ❌ **Error al cargar los datos.**<br>
+                        Detalle: ${error.message}. Por favor, intente de nuevo más tarde.
+                    </div>
+                `;
+            }
+        }
+
+        fetchAndRenderCandidates();
+    </script>
+</body>
+</html>
