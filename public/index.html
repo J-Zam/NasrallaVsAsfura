@@ -127,10 +127,14 @@
             </div>
         </div>
 
-        <!-- <div id="candidates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center pb-12">
+        <div id="candidates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center pb-12">
             <div class="loading text-center text-sm text-gray-600 font-medium animate-pulse col-span-full py-12">🔄 Obteniendo los últimos datos desde el servidor...</div>
-        </div> -->
+        </div>
     </div>
+
+    <footer class="text-center py-6 border-t border-gray-200">
+        <p class="text-sm text-gray-600">Gracias Televicentro por regalarnos los datos desde el CNE</p>
+    </footer>
 
     <script>
         const API_URL = '/api/candidatos'; 
@@ -238,7 +242,7 @@
                     leaderComparisonElement.classList.remove('hidden');
                 }
 
-                candidates.slice(0, 2).forEach(hit => {
+                candidates.slice(0, 0).forEach(hit => {
                     if (!hit._source || !hit._source.value) return; 
 
                     const data = hit._source.value;
