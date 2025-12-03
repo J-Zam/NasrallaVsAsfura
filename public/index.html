@@ -218,24 +218,24 @@
                     voteDifferenceText.innerHTML = `🚦 ${winnerName} aventaja a ${runnerUpName} por <strong>${difference.toLocaleString('es-HN')}</strong> votos.`;
 
                     // Calcular y aplicar porcentajes para la barra visual
-                    const winnerPercentage = totalTwo > 0 ? ((winnerVotes / totalTwo) * 100) : 50;
-                    const runnerUpPercentage = 100 - winnerPercentage;
+                    const winnerPercentage = parseFloat(winner.porcentaje) || 0;
+                    const runnerUpPercentage = parseFloat(runnerUp.porcentaje) || 0;
 
                     const winnerBar = document.getElementById('winner-bar');
                     const runnerUpBar = document.getElementById('runnerup-bar');
                     const winnerVotesElement = document.getElementById('winner-votes');
                     const runnerUpVotesElement = document.getElementById('runnerup-votes');
 
-                    winnerBar.style.width = `${winnerPercentage}%`;
+                    winnerBar.style.width = `${winnerPercentage.toFixed(2)}%`;
                     const winnerBgColor = winner.color === '#d69300' ? '#d69300' : (winner.color || '#007bff');
                     winnerBar.style.backgroundColor = winnerBgColor;
-                    winnerBar.innerHTML = `<span class="font-bold text-white truncate flex-1">${winnerName.split(' ')[0]}</span> <span class="font-black text-yellow-300 mx-2">${winnerPercentage.toFixed(1)}%</span> <img src="${winnerImg}" alt="${winnerName}" class="w-12 h-12 rounded-full border-2 border-white shadow-lg object-cover flex-shrink-0">`;
+                    winnerBar.innerHTML = `<span class="font-bold text-white truncate flex-1">${winnerName.split(' ')[0]}</span> <span class="font-black text-yellow-300 mx-2">${winnerPercentage.toFixed(2)}%</span> <img src="${winnerImg}" alt="${winnerName}" class="w-12 h-12 rounded-full border-2 border-white shadow-lg object-cover flex-shrink-0">`;
                     winnerVotesElement.textContent = `${winnerVotes.toLocaleString('es-HN')} votos`;
 
-                    runnerUpBar.style.width = `${runnerUpPercentage}%`;
+                    runnerUpBar.style.width = `${runnerUpPercentage.toFixed(2)}%`;
                     const runnerUpBgColor = runnerUp.color === '#d69300' ? '#d69300' : (runnerUp.color || '#e50000');
                     runnerUpBar.style.backgroundColor = runnerUpBgColor;
-                    runnerUpBar.innerHTML = `<span class="font-bold text-white truncate flex-1">${runnerUpName.split(' ')[0]}</span> <span class="font-black text-yellow-300 mx-2">${runnerUpPercentage.toFixed(1)}%</span> <img src="${runnerUpImg}" alt="${runnerUpName}" class="w-12 h-12 rounded-full border-2 border-white shadow-lg object-cover flex-shrink-0">`;
+                    runnerUpBar.innerHTML = `<span class="font-bold text-white truncate flex-1">${runnerUpName.split(' ')[0]}</span> <span class="font-black text-yellow-300 mx-2">${runnerUpPercentage.toFixed(2)}%</span> <img src="${runnerUpImg}" alt="${runnerUpName}" class="w-12 h-12 rounded-full border-2 border-white shadow-lg object-cover flex-shrink-0">`;
                     runnerUpVotesElement.textContent = `${runnerUpVotes.toLocaleString('es-HN')} votos`;
 
                     leaderComparisonElement.classList.remove('hidden');
