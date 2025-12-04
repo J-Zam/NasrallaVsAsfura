@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,29 +43,37 @@
         }
     </script>
 </head>
-<body class="font-sans text-gray-900 bg-gradient-to-br from-blue-50 via-white to-indigo-50 m-0 p-0 leading-relaxed min-h-screen">
+
+<body
+    class="font-sans text-gray-900 bg-gradient-to-br from-blue-50 via-white to-indigo-50 m-0 p-0 leading-relaxed min-h-screen">
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8">
         <div class="text-center mb-8">
-            <h1 class="text-5xl sm:text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-800 to-indigo-900 text-center mb-2 animate-fade-in">🇭🇳 Resultados Elecciones Honduras 2025</h1>
+            <h1
+                class="text-5xl sm:text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-800 to-indigo-900 text-center mb-2 animate-fade-in">
+                Resultados Elecciones Honduras 2025</h1>
             <div class="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full mb-4"></div>
             <p class="text-sm text-gray-600 font-medium tracking-wide">GENERALES</p>
         </div>
-        
-        <div id="last-update" class="text-center mb-6 text-sm font-semibold text-gray-600 tracking-wide animate-fade-in">⏱️ Cargando datos...</div>
-        
+
+        <div id="last-update"
+            class="text-center mb-6 text-md font-semibold text-gray-600 tracking-wide animate-fade-in">⏱️ Cargando
+            datos...</div>
+
         <!-- OLYMPIC STADIUM: Comparación de Líderes como una carrera humana -->
         <div id="leader-comparison" class="max-w-4xl mx-auto mb-12 hidden animate-slide-up">
-            <div class="bg-gradient-to-b from-red-900 via-red-800 to-red-900 rounded-3xl p-8 shadow-2xl border-4 border-yellow-300 relative overflow-hidden">
+            <div
+                class="bg-gradient-to-b from-red-900 via-red-800 to-red-900 rounded-3xl p-8 shadow-2xl border-4 border-yellow-300 relative overflow-hidden">
                 <!-- Decorative Olympic rings pattern -->
-                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full flex justify-center gap-2 opacity-10">
+                <div
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full flex justify-center gap-2 opacity-10">
                     <div class="w-12 h-12 border-4 border-blue-400 rounded-full"></div>
                     <div class="w-12 h-12 border-4 border-black rounded-full"></div>
                     <div class="w-12 h-12 border-4 border-red-600 rounded-full"></div>
                     <div class="w-12 h-12 border-4 border-yellow-400 rounded-full"></div>
                     <div class="w-12 h-12 border-4 border-green-500 rounded-full"></div>
                 </div>
-                
+
                 <!-- Title -->
                 <div class="relative z-10 mb-8 text-center">
                     <h2 class="text-3xl font-black text-yellow-300 mb-2 flex items-center justify-center gap-3">
@@ -72,12 +81,12 @@
                     </h2>
                     <p class="text-yellow-200 font-bold text-sm tracking-widest">¿QUIÉN CRUZARÁ LA META PRIMERO?</p>
                 </div>
-                
+
                 <!-- Difference text -->
-                <div id="vote-difference-text" class="text-center mb-8 animate-pulse-slow text-white font-bold text-lg">
-                    <p class="text-yellow-200 font-bold text-lg">⏳ ¡LA CARRERA ESTÁ EN JUEGO!</p>
+                <div id="vote-difference-text" class="text-center mb-8">
+                    <p class="text-yellow-200 font-bold text-lg animate-pulse">⏳ ¡LA CARRERA ESTÁ EN JUEGO!</p>
                 </div>
-                
+
                 <!-- Running Track Lanes -->
                 <div class="space-y-6">
                     <!-- Lane 1: Winner -->
@@ -85,40 +94,52 @@
                         <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center gap-3">
                                 <span class="text-2xl">🥇</span>
-                                <span class="font-black text-yellow-200 text-sm uppercase tracking-wider">Carril 1</span>
+                                <span class="font-black text-yellow-200 text-sm uppercase tracking-wider">Carril
+                                    1</span>
                             </div>
                             <div id="winner-votes" class="font-black text-yellow-200 text-sm">0 votos</div>
                         </div>
-                        <div class="relative h-20 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 border-4 border-yellow-300 overflow-hidden shadow-lg" style="background: linear-gradient(90deg, #4c5369 0%, #5a6478 50%, #4c5369 100%);">
+                        <div class="relative h-20 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 border-4 border-yellow-300 overflow-hidden shadow-lg"
+                            style="background: linear-gradient(90deg, #4c5369 0%, #5a6478 50%, #4c5369 100%);">
                             <!-- Track lines (running track dashes) -->
                             <div class="absolute inset-0 flex items-center opacity-30">
-                                <div class="w-full h-1 bg-white" style="background: repeating-linear-gradient(90deg, white 0px, white 15px, transparent 15px, transparent 30px);"></div>
+                                <div class="w-full h-1 bg-white"
+                                    style="background: repeating-linear-gradient(90deg, white 0px, white 15px, transparent 15px, transparent 30px);">
+                                </div>
                             </div>
                             <!-- Running bar -->
-                            <div id="winner-bar" class="h-full flex items-center justify-between px-5 text-white font-black text-base transition-all duration-1000 ease-out rounded-full shadow-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:shadow-2xl hover:from-emerald-400 hover:to-green-500" style="width: 0%;"></div>
+                            <div id="winner-bar"
+                                class="h-full flex items-center justify-between px-5 text-white font-black text-base transition-all duration-1000 ease-out rounded-full shadow-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:shadow-2xl hover:from-emerald-400 hover:to-green-500"
+                                style="width: 0%;"></div>
                         </div>
                     </div>
-                    
+
                     <!-- Lane 2: Runner-up -->
                     <div class="relative">
                         <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center gap-3">
                                 <span class="text-2xl">🥈</span>
-                                <span class="font-black text-yellow-200 text-sm uppercase tracking-wider">Carril 2</span>
+                                <span class="font-black text-yellow-200 text-sm uppercase tracking-wider">Carril
+                                    2</span>
                             </div>
                             <div id="runnerup-votes" class="font-black text-yellow-200 text-sm">0 votos</div>
                         </div>
-                        <div class="relative h-20 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 border-4 border-yellow-300 overflow-hidden shadow-lg" style="background: linear-gradient(90deg, #4c5369 0%, #5a6478 50%, #4c5369 100%);">
+                        <div class="relative h-20 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 border-4 border-yellow-300 overflow-hidden shadow-lg"
+                            style="background: linear-gradient(90deg, #4c5369 0%, #5a6478 50%, #4c5369 100%);">
                             <!-- Track lines (running track dashes) -->
                             <div class="absolute inset-0 flex items-center opacity-30">
-                                <div class="w-full h-1 bg-white" style="background: repeating-linear-gradient(90deg, white 0px, white 15px, transparent 15px, transparent 30px);"></div>
+                                <div class="w-full h-1 bg-white"
+                                    style="background: repeating-linear-gradient(90deg, white 0px, white 15px, transparent 15px, transparent 30px);">
+                                </div>
                             </div>
                             <!-- Running bar -->
-                            <div id="runnerup-bar" class="h-full flex items-center justify-between px-5 text-white font-black text-base transition-all duration-1000 ease-out rounded-full shadow-xl bg-gradient-to-r from-red-500 to-orange-600 hover:shadow-2xl hover:from-red-400 hover:to-orange-500" style="width: 0%;"></div>
+                            <div id="runnerup-bar"
+                                class="h-full flex items-center justify-between px-5 text-white font-black text-base transition-all duration-1000 ease-out rounded-full shadow-xl bg-gradient-to-r from-red-500 to-orange-600 hover:shadow-2xl hover:from-red-400 hover:to-orange-500"
+                                style="width: 0%;"></div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Finish line -->
                 <div class="mt-8 flex justify-end items-center gap-2 opacity-90">
                     <div class="text-2xl font-black">🏁</div>
@@ -127,16 +148,21 @@
             </div>
         </div>
 
-        <div id="candidates-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center pb-12">
-            <div class="loading text-center text-sm text-gray-600 font-medium animate-pulse col-span-full py-12">🔄 Obteniendo los últimos datos desde el servidor...</div>
+        <div id="candidates-list"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center pb-12">
+            <div class="loading text-center text-sm text-gray-600 font-medium animate-pulse col-span-full py-12">🔄
+                Obteniendo los últimos datos desde el servidor...</div>
         </div>
     </div>
     <footer class="text-center py-6 border-t border-gray-200 max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        <p class="text-md text-gray-600">Creado por <span class="font-bold">Alex Zambrano</span>, por una Honduras justa.</p>
-        <p class="text-sm text-gray-600">Gracias Televicentro por regalarnos los datos desde el CNE.</p>
+        <p class="text-md text-gray-600">Creado por <span class="font-bold"
+                onclick="window.open('https://github.com/J-Zam', '_blank');">
+                Alex Zambrano
+            </span></p>
+        <p class="text-sm text-gray-600">Gracias a Televicentro por compartirnos los datos desde el CNE.</p>
     </footer>
     <script>
-        const API_URL = '/api/candidatos'; 
+        const API_URL = '/api/candidatos';
         const IMAGE_BASE_URL = 'https://www.eleccioneshonduras.hn/assets/img/candidatos/';
 
         const candidatesList = document.getElementById('candidates-list');
@@ -149,7 +175,7 @@
             if (color === '#d69300') return 'border-t-yellow-700';
             return 'border-t-gray-400';
         }
-        
+
         // Función auxiliar para convertir el string de votos (ej: "1,021,822") a número
         function parseVotes(voteString) {
             if (!voteString || typeof voteString !== 'string') return 0;
@@ -165,7 +191,7 @@
                 if (!response.ok) {
                     throw new Error(data.error || `Error HTTP: ${response.status}`);
                 }
-                
+
                 candidatesList.innerHTML = '';
 
                 if (!data.candidatos || !data.candidatos.responses) {
@@ -205,7 +231,7 @@
                     const runnerUpVotes = parseVotes(runnerUp.total_votos);
                     const totalTwo = winnerVotes + runnerUpVotes;
                     const difference = winnerVotes - runnerUpVotes;
-                    
+
                     const winnerName = winner.nombre || "El primer lugar";
                     const runnerUpName = runnerUp.nombre || "el segundo lugar";
 
@@ -215,7 +241,11 @@
 
                     // Actualizar texto de diferencia
                     const voteDifferenceText = document.getElementById('vote-difference-text');
-                    voteDifferenceText.innerHTML = `🚦 ${winnerName} aventaja a ${runnerUpName} por <strong>${difference.toLocaleString('es-HN')}</strong> votos.`;
+                    voteDifferenceText.innerHTML = `
+                        <div class="text-sm uppercase tracking-wider text-white">${winnerName} aventaja a ${runnerUpName}</div>
+                        <div class="text-5xl font-black text-white my-1 animate-pulse-slow" style="text-shadow: 0 0 15px rgba(255,255,255,0.5);">+${difference.toLocaleString('es-HN')}</div>
+                        <div class="text-lg font-bold text-white">VOTOS DE VENTAJA</div>
+                    `;
 
                     // Calcular y aplicar porcentajes para la barra visual
                     const winnerPercentage = parseFloat(winner.porcentaje) || 0;
@@ -242,29 +272,29 @@
                 }
 
                 candidates.slice(0, 0).forEach(hit => {
-                    if (!hit._source || !hit._source.value) return; 
+                    if (!hit._source || !hit._source.value) return;
 
                     const data = hit._source.value;
                     const card = document.createElement('div');
-                    
+
                     const colorClass = mapColor(data.color);
                     card.className = `w-full max-w-sm bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:scale-105 ${colorClass} animate-slide-up group cursor-pointer`;
 
                     // Lógica segura para el partido
-                    let partyDisplay = "Partido/Cargo no especificado"; 
+                    let partyDisplay = "Partido/Cargo no especificado";
                     if (data.candidato && typeof data.candidato === 'string') {
                         const partyNameMatch = data.candidato.match(/por el (.*)/i);
                         partyDisplay = partyNameMatch ? partyNameMatch[1] : data.candidato;
                     } else if (data.candidato) {
                         partyDisplay = String(data.candidato);
                     }
-                    
+
                     // Asignar valores por defecto seguros
                     const nombre = data.nombre || "Candidato Desconocido";
                     const porcentaje = data.porcentaje || "0.00";
                     const totalVotos = data.total_votos || "0";
                     const descripcion = data.descripcion || "Sin descripción disponible.";
-                    
+
                     // Lógica para la imagen
                     const imgSrc = data.img ? (IMAGE_BASE_URL + data.img) : 'https://via.placeholder.com/350x200?text=Imagen+no+disponible';
                     const imageTag = `<img src="${imgSrc}" alt="Foto de ${nombre}" loading="lazy" class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-300">`;
@@ -312,4 +342,5 @@
         fetchAndRenderCandidates();
     </script>
 </body>
+
 </html>
